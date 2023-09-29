@@ -1,64 +1,66 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+Стек:
+- PHP 8.2-fpm
+- MySQL 8
+- Laravel 10.0
+- Bootstrap 5
+- Laravel Livewire
+- Docker
+- Nginx
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Для запуска проект 
 
-## About Laravel
+- **Форкаем проект**
+- **в файле .env прописываем доступы к базе данных 
+    DB_CONNECTION=mysql
+    DB_HOST=db
+    DB_PORT=3306
+    DB_DATABASE=slmax_tz
+    DB_USERNAME=root
+    DB_PASSWORD=root
+    **
+- **Далее запускаем Docker командой docker-compose up -d**
+- **Запускаем миграции php artisan migrate**
+- **http://localhost:8876 - заходим по адресу тестируем проект**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# Задание: прототип формы анкеты
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Представим, что вы работаете в международной компании по продаже автомобилей. 
+Для того, чтобы автоматизировать работу своим коллегам, вам предстоит разработать форму,
+которая будет контролировать и проверять вводимые данные пользователя перед тем как их сохранить.
 
-## Learning Laravel
+## Что необходимо реализовать:
+> Требуется реализация графического интерфейса при помощи Livewire
+> 
+> Сохранение данных в БД
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 1. Форма
+Форма должна содержать в себе поля:
+- (string) Имя [required] (_лимит макс. кол-во символов определите самостоятельно_)
+- (string) Фамилия [required] (_лимит макс. кол-во символов определите самостоятельно_)
+- (string) Отчество (_лимит макс. кол-во символов определите самостоятельно_)
+- (date) Дата рождения [required]
+- (email) Email
+- (select) Код страны: +375, +7 && (tel) Телефон (_в международном формате_)
+- (select) Семейное положение: Холост/не замужем, Женат/замужем, В разводе, Вдовец/вдова
+- (textarea) О себе [max:1000]
+- (file) Файлы [max:5|max:5mb|types:jpg,png,pdf|multiple] (_максимально 5 файлов, один файл не должен превышать 5 Мб, разрешенные форматы:jpg,png,pdf_)
+- (checkbox) Я ознакомился c правилами [required]
+- (button-submit) Отправить [disabled]
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2. Backend логика
+- Форма должна строиться через blade шаблоны Livewire
+- Контроллер дополнительно обрабатывает и проверяет данные перед отправкой в БД
+- Файлы можно сохранять локально (_важно, как вы их будете хранить в таблице БД_)
+- После отправки формы если произошла ошибка на стороне backend, необходимо сохранить введенные данные в полях
+- После отправки формы если нет ошибок - записываем данные формы в БД и на этом же экране убираем форму,
+вместо нее отображаем результат отправки и текст "Успешно"
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 3. Frontend логика
+- Валидация формы и всех ее полей
+- Форма не должна отправляться при нажатии на клавишу на клавиатуре Enter (_или на телефоне Ввод_)
+- Если все поля заполнены верно - активируем кнопку "Отправить" для возможности отправки формы
+- Если поле заполнено не верно - выводим красным текстом под полем ошибку, само поле обводим красной обводкой
+- Возле поля "Телефон" должна находится кнопка "+" для добавления дополнительного номера телефона (_добавлять таких полей можно до 5 шт._)
+- Поле "Email" и "Телефон" - обязательно должно быть заполнено любое одно (_почта или телефон_) иначе ошибка
+- Поле "О себе" можно растянуть только вниз и не более чем на 7 строк
